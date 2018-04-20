@@ -16,7 +16,7 @@ public abstract interface UserMapper
     User findUserBySome();
     void addUser(User paramUser);
 
-    User findByUsername(String name);
+    User findByUsername(@Param("realName") String realName);
 
     User findUserByBNameAndPassword(@Param("realName") String realName, @Param("password") String password);
 }

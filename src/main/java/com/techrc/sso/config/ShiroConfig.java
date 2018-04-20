@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
@@ -53,6 +54,7 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setSessionManager(sessionManager());
         securityManager.setCacheManager(redisCacheManager());
+        securityManager.setRealm(getUserRealm());
         return securityManager;
     }
 
@@ -72,21 +74,23 @@ public class ShiroConfig {
 
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean() {
-        Map<String, String> filterChainDefinitionMap = new HashMap<>();
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager());
 
-        shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
-
-
-        filterChainDefinitionMap.put("/sa/**", "authc");
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/user/**", "authc");
+        //filterChainDefinitionMap.put("/**", "anon");
 
         //配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
+        shiroFilterFactoryBean.setLoginUrl("/login/noLogin");
+        shiroFilterFactoryBean.setSuccessUrl("/index");
+
+
+
         return shiroFilterFactoryBean;
     }
 

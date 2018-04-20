@@ -10,14 +10,20 @@
 
 
     <insert id="addUser" parameterType="com.techrc.sso.model.User">
-        insert into rc_system_user (realName,password,phoneNo,email,theme,avatar  )
-        values (#{realName}, #{password},#{phoneNo},#{email},#{theme},#{avatar} )
+        insert into rc_system_user (realName,password,phoneNo,email,theme,avatar,credentialsSalt  )
+        values (#{realName}, #{password},#{phoneNo},#{email},#{theme},#{avatar},#{credentialsSalt} )
     </insert>
 
 
     <select id="findUserBySome" resultType="com.techrc.sso.model.User">
 
        select * from rc_system_user limit 0,1
+
+    </select>
+
+    <select id="findByUsername" parameterType="java.lang.String"  resultType="com.techrc.sso.model.User">
+
+        select * from rc_system_user WHERE  realName='${realName}'
 
     </select>
 
