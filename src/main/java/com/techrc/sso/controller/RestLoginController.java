@@ -3,6 +3,7 @@ package com.techrc.sso.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.techrc.sso.model.User;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestLoginController {
 
     @PostMapping("/tologin")
+    @ApiOperation(value="登录", tags={"用户"})
     public String ajaxLogin(User userInfo) {
         JSONObject jsonObject = new JSONObject();
         Subject subject = SecurityUtils.getSubject();
