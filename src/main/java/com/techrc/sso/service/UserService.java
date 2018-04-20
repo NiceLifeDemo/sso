@@ -30,6 +30,13 @@ public class UserService {
 
      };
 
+     public  User findByUsername(String name){
+
+         User user=userMapper.findByUsername(name);
+         return  user;
+     };
+
+
      public void addUser(User user){
          userMapper.addUser(user);
 
