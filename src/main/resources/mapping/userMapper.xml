@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.techrc.sso.mapper.UserMapper">
+
+    <select id="findUserInfo" resultType="java.util.Map">
+
+        select * from rc_system_user
+
+    </select>
+
+
+    <insert id="addUser" parameterType="com.techrc.sso.model.User">
+        insert into rc_system_user (realName,password,phoneNo,email,theme,avatar  )
+        values (#{realName}, #{password},#{phoneNo},#{email},#{theme},#{avatar} )
+    </insert>
+
+
+    <select id="findUserBySome" resultType="com.techrc.sso.model.User">
+
+       select * from rc_system_user limit 0,1
+
+    </select>
+
+
+
+    <select id="findUserByBNameAndPassword" parameterType="java.lang.String"  resultType="com.techrc.sso.model.User">
+
+       select * from rc_system_user WHERE realName='${realName}' and password='${password}' limit 0,1
+
+    </select>
+</mapper>
